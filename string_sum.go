@@ -37,11 +37,13 @@ func StringSum(input string) (output string, err error) {
 	}
 	num1, err := strconv.Atoi(strings.TrimSpace(str[0]))
 	if err != nil {
-		return "", fmt.Errorf("error: %w", errorNotAnumber)
+		err = errorNotAnumber
+		return "", fmt.Errorf("error: %w", err)
 	}
 	num2, err := strconv.Atoi(strings.TrimSpace(str[1]))
 	if err != nil {
-		return "", fmt.Errorf("error: %w", errorNotAnumber)
+		err = errorNotAnumber
+		return "", fmt.Errorf("error: %w", err)
 	}
 
 	result := num1 + num2
