@@ -2,6 +2,9 @@ package string_sum
 
 import (
 	"errors"
+	"fmt"
+	"strconv"
+	"strings"
 )
 
 //use these errors as appropriate, wrapping them with fmt.Errorf function
@@ -10,6 +13,7 @@ var (
 	errorEmptyInput = errors.New("input is empty")
 	// Use when the expression has number of operands not equal to two
 	errorNotTwoOperands = errors.New("expecting two operands, but received more or less")
+	errorNotAnumber     = errors.New("value not a number")
 )
 
 // Implement a function that computes the sum of two int numbers written as a string
@@ -23,5 +27,22 @@ var (
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 
 func StringSum(input string) (output string, err error) {
-	return "", nil
+	str := strings.Split(strings.TrimSpace(input), "+")
+
+	if str == nil {
+		fmt.Errorf("error: %w", errorEmptyInput)
+	} else if len(str) > 3 || len(str) < 3 {
+		fmt.Errorf("error: %w", errorNotTwoOperands)
+	}
+	num1, err := strconv.Atoi(str[0])
+	if err != nil {
+		fmt.Errorf("error: %w", errorNotAnumber)
+	}
+	num2, err := strconv.Atoi(str[1])
+	if err != nil {
+		fmt.Errorf("error: %w", errorNotAnumber)
+	}
+
+	output = string(num1 + num2)
+	return output, nil
 }
