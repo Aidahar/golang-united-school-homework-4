@@ -28,21 +28,23 @@ var (
 
 func StringSum(input string) (output string, err error) {
 	str := strings.Split(strings.TrimSpace(input), "+")
+	fmt.Println(str)
 
 	if str == nil {
-		fmt.Errorf("error: %w", errorEmptyInput)
-	} else if len(str) > 3 || len(str) < 3 {
-		fmt.Errorf("error: %w", errorNotTwoOperands)
+		return "", fmt.Errorf("error: %w", errorEmptyInput)
+	} else if len(str) > 3 || len(str) < 2 {
+		return "", fmt.Errorf("error: %w", errorNotTwoOperands)
 	}
-	num1, err := strconv.Atoi(str[0])
+	num1, err := strconv.Atoi(strings.TrimSpace(str[0]))
 	if err != nil {
-		fmt.Errorf("error: %w", errorNotAnumber)
+		return "", fmt.Errorf("error: %w", errorNotAnumber)
 	}
-	num2, err := strconv.Atoi(str[1])
+	num2, err := strconv.Atoi(strings.TrimSpace(str[1]))
 	if err != nil {
-		fmt.Errorf("error: %w", errorNotAnumber)
+		return "", fmt.Errorf("error: %w", errorNotAnumber)
 	}
 
-	output = string(num1 + num2)
+	result := num1 + num2
+	output = strconv.Itoa(result)
 	return output, nil
 }
